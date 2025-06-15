@@ -22,8 +22,8 @@
         const lat = pos.coords.latitude.toFixed(6);
         const lon = pos.coords.longitude.toFixed(6);
 
-        // Using your form and field IDs
-        const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSd1hWzCnBWfQXeMlbJTKXO0KB4vKt6oE7rganU8KdwIH67gnQ/viewform?entry.821312264=${lat}&entry.424244982=${lon}`;
+        // Final working form with correct field IDs
+        const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSd1hWzCnBWfQXeMlbJTKXO0KB4vKt6oE7rganU8KdwIH67gnQ/viewform?usp=pp_url&entry.212183851=${lat}&entry.257830981=${lon}`;
         window.location.href = formURL;
       },
       (err) => {
