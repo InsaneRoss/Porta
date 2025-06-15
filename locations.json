@@ -8,5 +8,10 @@
     "lat": 11.1111,
     "lng": 22.22222,
     "label": "PortaPotty"
+  },
+  {
+    "lat": 37.501482,
+    "lng": -77.91742,
+    "label": "PortaPotty"
   }
 ]
