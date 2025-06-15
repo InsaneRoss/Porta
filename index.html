@@ -12,31 +12,37 @@
       margin-top: 5px;
       background: #c0392b;
       color: white;
-      padding: 5px;
+      padding: 6px;
       text-align: center;
       text-decoration: none;
-      border-radius: 4px;
+      border-radius: 5px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
+
+  <!-- Add a PortaPotty button -->
   <a href="add.html" style="
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
-  background: white;
-  color: black;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  text-decoration: none;
-  box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
-">➕ Add a PortaPotty</a>
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: white;
+    color: black;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+  ">➕ Add a PortaPotty</a>
+
   <div id="map"></div>
+
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     const map = L.map('map').setView([39.5, -98.35], 4);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
@@ -47,11 +53,18 @@
         data.forEach(loc => {
           const { lat, lng, label } = loc;
           const gmapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-          const issueUrl = `https://github.com/InsaneRoss/Porta/issues/new?title=Remove%20location%20[${lat},${lng}]&body=This%20porta-potty%20is%20gone.%0ALocation:%20${lat},${lng}`;
-          const popupContent = `<strong>${label}</strong><br><a href="${gmapsUrl}" target="_blank">📍 Open in Google Maps</a><br><a href="${issueUrl}" class="button" target="_blank">❌ Report as Removed</a>`;
+          const reportUrl = `https://docs.google.com/forms/d/e/1FAIpQLScd1HkKjLlTMOeCHJ6Rn8trT15USGmOwhJ1cXtPhGHfCR1DyA/viewform?usp=pp_url&entry.212183851=${lat}&entry.257830981=${lng}`;
+
+          const popupContent = `
+            <strong>${label}</strong><br>
+            <a href="${gmapsUrl}" target="_blank">📍 Open in Google Maps</a><br>
+            <a href="${reportUrl}" target="_blank" class="button">❌ Report as Removed</a>
+          `;
+
           L.marker([lat, lng]).addTo(map).bindPopup(popupContent);
         });
       });
   </script>
+
 </body>
 </html>
