@@ -283,5 +283,35 @@
     "lat": 38.976,
     "lng": -77.4479,
     "label": "Quarles"
+  },
+  {
+    "lat": 11.1111,
+    "lng": 22.2222,
+    "label": "PortaPotty"
+  },
+  {
+    "lat": 11.1111,
+    "lng": 22.22222,
+    "label": "PortaPotty"
+  },
+  {
+    "lat": 37.538017,
+    "lng": -77.883757,
+    "label": "PortaPotty"
+  },
+  {
+    "lat": 37.455395,
+    "lng": -77.629294,
+    "label": "PortaPotty"
+  },
+  {
+    "lat": 37.500486,
+    "lng": -77.599401,
+    "label": "PortaPotty"
+  },
+  {
+    "lat": 37.502768,
+    "lng": -77.431168,
+    "label": "PortaPotty"
   }
 ]
