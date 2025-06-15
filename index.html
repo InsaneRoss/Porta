@@ -53,12 +53,13 @@
         data.forEach(loc => {
           const { lat, lng, label } = loc;
           const gmapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-          const reportUrl = `https://docs.google.com/forms/d/e/1FAIpQLSe2rqRIKnNBw83M0xTS2NffnAZysfSqAa9ilLi89NQ2vLscQg/viewform?usp=pp_url&entry.1410949346=${lat}&entry.708279537=${lng}`;
-
-          const popupContent = `
+          
+          const encodedReportUrl = encodeURI(`https://docs.google.com/forms/d/e/1FAIpQLSe2rqRIKnNBw83M0xTS2NffnAZysfSqAa9ilLi89NQ2vLscQg/viewform?usp=pp_url&entry.1410949346=${lat}&entry.708279537=${lng}`
+              );
+const popupContent = `
             <strong>${label}</strong><br>
             <a href="${gmapsUrl}" target="_blank">📍 Open in Google Maps</a><br>
-            <a href="${reportUrl}" target="_blank" class="button">❌ Report as Removed</a>
+           <a href="${encodedReportUrl}" target="_blank" class="button">❌ Report as Removed</a>
           `;
 
           L.marker([lat, lng]).addTo(map).bindPopup(popupContent);
