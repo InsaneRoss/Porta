@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TelePorta Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; }
+    #map { width: 100%; height: 100%; }
+    .leaflet-popup-content a.button {
+      display: block;
+      margin-top: 5px;
+      background: #c0392b;
+      color: white;
+      padding: 5px;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([39.5, -98.35], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    fetch('locations.json')
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(loc => {
+          const { lat, lng, label } = loc;
+          const gmapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+          const issueUrl = `https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new?title=Remove%20location%20[${lat},${lng}]&body=This%20porta-potty%20is%20gone.%0ALocation:%20${lat},${lng}`;
+          const popupContent = `<strong>${label}</strong><br><a href="${gmapsUrl}" target="_blank">📍 Open in Google Maps</a><br><a href="${issueUrl}" class="button" target="_blank">❌ Report as Removed</a>`;
+          L.marker([lat, lng]).addTo(map).bindPopup(popupContent);
+        });
+      });
+  </script>
+</body>
+</html>
