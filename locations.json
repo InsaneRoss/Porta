@@ -1,288 +1,32 @@
 [
-  
   {
-    "lat": 37.759,
-    "lng": -77.4746,
-    "label": "Quarles"
+    "lat": 11.1111,
+    "lng": 22.2222,
+    "label": "PortaPotty"
   },
   {
-    "lat": 37.7592,
-    "lng": -77.4649,
-    "label": "Quarles"
+    "lat": 11.1111,
+    "lng": 22.22222,
+    "label": "PortaPotty"
   },
   {
-    "lat": 38.5769,
-    "lng": -77.7474,
-    "label": "Quarles"
+    "lat": 37.538017,
+    "lng": -77.883757,
+    "label": "PortaPotty"
   },
   {
-    "lat": 38.607,
-    "lng": -78.8005,
-    "label": "Quarles"
+    "lat": 37.455395,
+    "lng": -77.629294,
+    "label": "PortaPotty"
   },
   {
-    "lat": 38.902,
-    "lng": -77.447,
-    "label": "Quarles"
+    "lat": 37.500486,
+    "lng": -77.599401,
+    "label": "PortaPotty"
   },
   {
-    "lat": 38.0448,
-    "lng": -78.4767,
-    "label": "Quarles"
-  },
-  {
-    "lat": 36.777,
-    "lng": -76.421,
-    "label": "Quarles"
-  },
-  {
-    "lat": 36.8051,
-    "lng": -76.3001,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.3525,
-    "lng": -77.4203,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.3666,
-    "lng": -77.5141,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.4855,
-    "lng": -77.9924,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.4601,
-    "lng": -78.018,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.8791,
-    "lng": -77.4807,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.861,
-    "lng": -77.263,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.3405,
-    "lng": -77.4834,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.2519,
-    "lng": -77.4665,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.3362,
-    "lng": -77.4584,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.1979,
-    "lng": -77.4786,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.2513,
-    "lng": -77.4904,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.2784,
-    "lng": -77.5173,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.926,
-    "lng": -78.1925,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.6611,
-    "lng": -77.4534,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.7774,
-    "lng": -77.9787,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.0265,
-    "lng": -76.3909,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.0303,
-    "lng": -76.4083,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.4082,
-    "lng": -78.8779,
-    "label": "Quarles"
-  },
-  {
-    "lat": 39.1073,
-    "lng": -77.554,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.3846,
-    "lng": -79.1408,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.7791,
-    "lng": -77.4983,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.7519,
-    "lng": -77.4606,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.7683,
-    "lng": -77.1208,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.4748,
-    "lng": -77.6539,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.4516,
-    "lng": -77.6482,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.739,
-    "lng": -77.203,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.1053,
-    "lng": -76.5039,
-    "label": "Quarles"
-  },
-  {
-    "lat": 36.8583,
-    "lng": -76.2456,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.2269,
-    "lng": -77.3984,
-    "label": "Quarles"
-  },
-  {
-    "lat": 36.8327,
-    "lng": -76.3182,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.5481,
-    "lng": -77.9258,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.541,
-    "lng": -77.4373,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.4862,
-    "lng": -77.4346,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.4877,
-    "lng": -77.4433,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.5801,
-    "lng": -77.4741,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.4892,
-    "lng": -77.5652,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.5616,
-    "lng": -77.4575,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.4036,
-    "lng": -77.4297,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.4554,
-    "lng": -77.4526,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.3082,
-    "lng": -79.9513,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.2782,
-    "lng": -79.9771,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.6942,
-    "lng": -77.6858,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.2401,
-    "lng": -78.3705,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.2931,
-    "lng": -80.0684,
-    "label": "Quarles"
-  },
-  {
-    "lat": 37.5222,
-    "lng": -77.3121,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.7938,
-    "lng": -77.1815,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.1534,
-    "lng": -79.0717,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.9782,
-    "lng": -77.4496,
-    "label": "Quarles"
-  },
-  {
-    "lat": 38.976,
-    "lng": -77.4479,
-    "label": "Quarles"
+    "lat": 37.502768,
+    "lng": -77.431168,
+    "label": "PortaPotty"
   }
 ]
