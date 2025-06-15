@@ -4,12 +4,12 @@ const https = require("https");
 const ADD_SHEET = "https://opensheet.elk.sh/1-3Oc_Z1lSFgz5IKq23fjEazebDl2K-G7xsKOyXFKr3k/Form Responses 1";
 const REMOVE_SHEET = "https://opensheet.elk.sh/1O4vqdvWyCAKDXy__NMUt_eHgy9UK1wfZzyIYFUFJS5E/Form Responses 1";
 
-// Load existing locations.json (if it exists) to preserve Quarles entries
+// 🔒 Preserve all existing entries not labeled "PortaPotty"
 let preserved = [];
 if (fs.existsSync("locations.json")) {
   try {
     const existing = JSON.parse(fs.readFileSync("locations.json", "utf8"));
-    preserved = existing.filter(loc => loc.label === "Quarles");
+    preserved = existing.filter(loc => loc.label !== "PortaPotty");
   } catch (e) {
     console.warn("⚠️ Failed to parse existing locations.json");
   }
@@ -30,29 +30,31 @@ function fetchJson(url) {
     const addData = await fetchJson(ADD_SHEET);
     const removeData = await fetchJson(REMOVE_SHEET);
 
+    // ⚠️ Only allow removal of "PortaPotty" entries
     const removedSet = new Set(
       removeData.map(r => `${r["Latitude"]},${r["Longitude"]}`)
     );
 
-    // Process new form submissions
+    // Process new form submissions (all are PortaPotty entries)
     const fromForms = addData.map(entry => ({
       lat: parseFloat(entry["Latitude"]),
       lng: parseFloat(entry["Longitude"]),
       label: entry["Label"] || "PortaPotty"
     }));
 
+    // 📦 Backup all submitted entries (raw form data)
     fs.writeFileSync("locations_backup.json", JSON.stringify(fromForms, null, 2));
 
-    // Filter out removed locations (but preserve Quarles no matter what)
+    // Filter out only PortaPotty entries that were reported
     const filteredForms = fromForms.filter(loc => {
       const key = `${loc.lat},${loc.lng}`;
-      return !removedSet.has(key);
+      return loc.label !== "PortaPotty" || !removedSet.has(key);
     });
 
-    // Combine preserved Quarles + current valid submissions
+    // 🔁 Combine preserved + filtered form entries
     const combined = [...preserved, ...filteredForms];
 
-    // Optional: remove accidental duplicates (same lat/lng)
+    // 🧼 Remove duplicates
     const seen = new Set();
     const final = combined.filter(loc => {
       const key = `${loc.lat},${loc.lng}`;
