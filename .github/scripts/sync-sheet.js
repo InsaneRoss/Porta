@@ -1,4 +1,4 @@
-// .github/scripts/sync-sheet.js
+
 const fs = require("fs");
 const https = require("https");
 
@@ -24,21 +24,26 @@ function fetchJson(url) {
       removeData.map(r => `${r["Latitude"]},${r["Longitude"]}`)
     );
 
-    const filtered = addData.filter(entry => {
-      const coord = `${entry["Latitude"]},${entry["Longitude"]}`;
-      return !removedSet.has(coord);
-    });
-
-    const output = filtered.map(entry => ({
+    // Backup of all submitted locations
+    const fullBackup = addData.map(entry => ({
       lat: parseFloat(entry["Latitude"]),
       lng: parseFloat(entry["Longitude"]),
       label: entry["Label"] || "PortaPotty"
     }));
 
-    fs.writeFileSync("locations.json", JSON.stringify(output, null, 2));
-    console.log("✅ locations.json updated successfully.");
+    fs.writeFileSync("locations_backup.json", JSON.stringify(fullBackup, null, 2));
+
+    // Filtered locations used on the map
+    const filtered = fullBackup.filter(loc => {
+      const key = `${loc.lat},${loc.lng}`;
+      return !removedSet.has(key);
+    });
+
+    fs.writeFileSync("locations.json", JSON.stringify(filtered, null, 2));
+
+    console.log("✅ Synced: locations.json and locations_backup.json");
   } catch (err) {
-    console.error("❌ Failed to sync locations:", err);
+    console.error("❌ Sync failed:", err);
     process.exit(1);
   }
 })();
