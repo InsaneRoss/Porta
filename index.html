@@ -47,7 +47,7 @@
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    fetch('locations.json')
+    fetch(`locations.json?v=${Date.now()}`)
       .then(res => res.json())
       .then(data => {
         data.forEach(loc => {
