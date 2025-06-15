@@ -1,0 +1,33 @@
+name: Append PortaPotty to JSON
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  append_location:
+    if: contains(github.event.label.name, 'approved')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Parse issue & update JSON
+        run: node .github/scripts/append.js
+        env:
+          ISSUE_BODY: "${{ github.event.issue.body }}"
+          ISSUE_TITLE: "${{ github.event.issue.title }}"
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add locations.json
+          git commit -m "Add porta-potty from approved issue"
+          git push
