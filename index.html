@@ -34,7 +34,7 @@
         data.forEach(loc => {
           const { lat, lng, label } = loc;
           const gmapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-          const issueUrl = `https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new?title=Remove%20location%20[${lat},${lng}]&body=This%20porta-potty%20is%20gone.%0ALocation:%20${lat},${lng}`;
+          const issueUrl = `https://github.com/InsaneRoss/Porta/issues/new?title=Remove%20location%20[${lat},${lng}]&body=This%20porta-potty%20is%20gone.%0ALocation:%20${lat},${lng}`;
           const popupContent = `<strong>${label}</strong><br><a href="${gmapsUrl}" target="_blank">📍 Open in Google Maps</a><br><a href="${issueUrl}" class="button" target="_blank">❌ Report as Removed</a>`;
           L.marker([lat, lng]).addTo(map).bindPopup(popupContent);
         });
