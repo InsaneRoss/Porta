@@ -8,5 +8,20 @@
     "lat": 37.501297,
     "lng": -77.917492,
     "label": "**Lat/Lng**: 37.501297, -77.917492"
+  },
+  {
+    "lat": 11.1111,
+    "lng": 22.2222,
+    "label": "Unnamed PortaPotty"
+  },
+  {
+    "lat": 11.1111,
+    "lng": 22.22222,
+    "label": "Unnamed PortaPotty"
+  },
+  {
+    "lat": 37.501386,
+    "lng": -77.917537,
+    "label": "Unnamed PortaPotty"
   }
 ]
