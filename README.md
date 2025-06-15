@@ -4,7 +4,7 @@
 
 ## 🌐 Live Site
 
-👉 [https://yourusername.github.io/Porta](https://yourusername.github.io/Porta)
+👉 [https://yourusername.github.io/Porta](https://insaneross.github.io/Porta)
 
 ## 🚀 Features
 
@@ -16,7 +16,7 @@
 
 ## 📥 Adding a PortaPotty
 
-1. Go to [`add.html`](https://yourusername.github.io/Porta/add.html)
+1. Go to [`add.html`](https://insaneross.github.io/Porta/add.html)
 2. Choose:
    - 📍 **Use My Location**: Automatically fills lat/lng
    - 🏠 **Enter Address**: Address is saved and reviewed later
