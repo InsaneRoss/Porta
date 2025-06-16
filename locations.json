@@ -23,5 +23,15 @@
     "lat": 11.1111,
     "lng": 22.2222,
     "label": "PortaPotty"
+  },
+  {
+    "lat": null,
+    "lng": null,
+    "label": "PortaPotty"
+  },
+  {
+    "lat": 37.345701,
+    "lng": -77.36327,
+    "label": "PortaPotty"
   }
 ]
