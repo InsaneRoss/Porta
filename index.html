@@ -66,7 +66,7 @@
       .then(res => res.json())
       .then(data => {
         data.forEach(loc => {
-          // ✅ Skip null or missing coordinates
+          
           if (loc.lat == null || loc.lng == null) return;
 
           const { lat, lng, label } = loc;
@@ -94,9 +94,9 @@
 
     const userIcon = L.icon({
       iconUrl: "https://raw.githubusercontent.com/InsaneRoss/Porta/main/assets/User.png",
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, -32]
+      iconSize: [64, 64],
+      iconAnchor: [32, 64],
+      popupAnchor: [0, -64]
     });
 
     map.on("locationfound", function (e) {
