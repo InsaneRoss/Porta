@@ -88,10 +88,17 @@
     map.locate({ setView: true, maxZoom: 16 });
   });
 
+    const userIcon = L.icon({
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32]
+});
+
   map.on("locationfound", function (e) {
     const radius = e.accuracy;
 
-    L.marker(e.latlng).addTo(map)
+    L.marker(e.latlng, { icon: userIcon }).addTo(map)
       .bindPopup("📍 You are here").openPopup();
 
     L.circle(e.latlng, radius, {
