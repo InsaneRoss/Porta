@@ -84,7 +84,27 @@
       L.marker([lat, lng]).addTo(map).bindPopup(popupContent);
     });
   });
-  </script>
+  document.getElementById("locate-btn").addEventListener("click", () => {
+    map.locate({ setView: true, maxZoom: 16 });
+  });
+
+  map.on("locationfound", function (e) {
+    const radius = e.accuracy;
+
+    L.marker(e.latlng).addTo(map)
+      .bindPopup("📍 You are here").openPopup();
+
+    L.circle(e.latlng, radius, {
+      color: "#136AEC",
+      fillColor: "#136AEC",
+      fillOpacity: 0.15
+    }).addTo(map);
+  });
+
+  map.on("locationerror", function () {
+    alert("📍 Could not get your location. Please allow location access.");
+  });
+</script>
 
 </body>
 </html>
