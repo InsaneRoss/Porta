@@ -39,20 +39,20 @@
 
   <div id="map"></div>
   <button id="locate-btn" title="Find Me" style="
-  position: absolute;
-  bottom: 20px;
-  left: 10px;
-  z-index: 1000;
-  background: white;
-  color: black;
-  padding: 8px 12px;
-  border-radius: 50%;
-  font-size: 18px;
-  font-weight: bold;
-  border: 2px solid #555;
-  cursor: pointer;
-  box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
-">📍</button>
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    z-index: 1000;
+    background: white;
+    color: black;
+    padding: 8px 12px;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #555;
+    cursor: pointer;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+  ">📍</button>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
@@ -63,55 +63,59 @@
     }).addTo(map);
 
     fetch(`locations.json?v=${Date.now()}`)
-  .then(res => res.json())
-  .then(data => {
-    data.forEach(loc => {
-      const { lat, lng, label } = loc;
-      const gmapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-      const encodedReportUrl = encodeURI(
-        `https://docs.google.com/forms/d/e/1FAIpQLSe2rqRIKnNBw83M0xTS2NffnAZysfSqAa9ilLi89NQ2vLscQg/viewform?usp=pp_url&entry.1410949346=${lat}&entry.708279537=${lng}`
-      );
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(loc => {
+          // ✅ Skip null or missing coordinates
+          if (loc.lat == null || loc.lng == null) return;
 
-      let popupContent = `
-        <strong>${label}</strong><br>
-        <a href="${gmapsUrl}" target="_blank">📍 Open in Google Maps</a><br>
-      `;
+          const { lat, lng, label } = loc;
+          const gmapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+          const encodedReportUrl = encodeURI(
+            `https://docs.google.com/forms/d/e/1FAIpQLSe2rqRIKnNBw83M0xTS2NffnAZysfSqAa9ilLi89NQ2vLscQg/viewform?usp=pp_url&entry.1410949346=${lat}&entry.708279537=${lng}`
+          );
 
-      if (label === "PortaPotty") {
-        popupContent += `<a href="${encodedReportUrl}" target="_blank" class="button">❌ Report as Removed</a>`;
-      }
+          let popupContent = `
+            <strong>${label}</strong><br>
+            <a href="${gmapsUrl}" target="_blank">📍 Open in Google Maps</a><br>
+          `;
 
-      L.marker([lat, lng]).addTo(map).bindPopup(popupContent);
+          if (label === "PortaPotty") {
+            popupContent += `<a href="${encodedReportUrl}" target="_blank" class="button">❌ Report as Removed</a>`;
+          }
+
+          L.marker([lat, lng]).addTo(map).bindPopup(popupContent);
+        });
+      });
+
+    document.getElementById("locate-btn").addEventListener("click", () => {
+      map.locate({ setView: true, maxZoom: 16 });
     });
-  });
-  document.getElementById("locate-btn").addEventListener("click", () => {
-    map.locate({ setView: true, maxZoom: 16 });
-  });
 
     const userIcon = L.icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32]
-});
+      iconUrl: "https://raw.githubusercontent.com/InsaneRoss/Porta/main/assets/User.png",
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32]
+    });
 
-  map.on("locationfound", function (e) {
-    const radius = e.accuracy;
+    map.on("locationfound", function (e) {
+      const radius = e.accuracy;
 
-    L.marker(e.latlng, { icon: userIcon }).addTo(map)
-      .bindPopup("📍 You are here").openPopup();
+      L.marker(e.latlng, { icon: userIcon }).addTo(map)
+        .bindPopup("📍 You are here").openPopup();
 
-    L.circle(e.latlng, radius, {
-      color: "#136AEC",
-      fillColor: "#136AEC",
-      fillOpacity: 0.15
-    }).addTo(map);
-  });
+      L.circle(e.latlng, radius, {
+        color: "#136AEC",
+        fillColor: "#136AEC",
+        fillOpacity: 0.15
+      }).addTo(map);
+    });
 
-  map.on("locationerror", function () {
-    alert("📍 Could not get your location. Please allow location access.");
-  });
-</script>
+    map.on("locationerror", function () {
+      alert("📍 Could not get your location. Please allow location access.");
+    });
+  </script>
 
 </body>
 </html>
