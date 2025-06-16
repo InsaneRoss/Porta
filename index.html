@@ -103,7 +103,7 @@
       const radius = e.accuracy;
 
       L.marker(e.latlng, { icon: userIcon }).addTo(map)
-        .bindPopup("📍 You are here").openPopup();
+        .bindPopup(`📍 You are here<br>Lat: ${e.latlng.lat.toFixed(6)}<br>Lng: ${e.latlng.lng.toFixed(6)}`).openPopup();
 
       L.circle(e.latlng, radius, {
         color: "#136AEC",
