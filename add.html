@@ -10,26 +10,51 @@
       text-align: center;
       background: #f4f4f4;
     }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
-  <h2>Getting your location…</h2>
-  <p>Please allow location access if prompted.</p>
+  <h2>Submit a PortaPotty</h2>
+  <p>Tap the button below to allow location and submit.</p>
+
+  <button id="getLocationBtn">📍 Use My Location</button>
+  <p id="status"></p>
 
   <script>
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const lat = pos.coords.latitude.toFixed(6);
-        const lon = pos.coords.longitude.toFixed(6);
+    const button = document.getElementById("getLocationBtn");
+    const statusText = document.getElementById("status");
 
-        // Final working form with correct field IDs
-        const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSd1hWzCnBWfQXeMlbJTKXO0KB4vKt6oE7rganU8KdwIH67gnQ/viewform?usp=pp_url&entry.212183851=${lat}&entry.257830981=${lon}`;
-        window.location.href = formURL;
-      },
-      (err) => {
-        document.body.innerHTML = "<h2>❌ Location failed</h2><p>" + err.message + "</p>";
-      }
-    );
+    button.addEventListener("click", () => {
+      statusText.textContent = "Getting your location...";
+      button.disabled = true;
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude.toFixed(6);
+          const lon = pos.coords.longitude.toFixed(6);
+
+        
+          const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSd1hWzCnBWfQXeMlbJTKXO0KB4vKt6oE7rganU8KdwIH67gnQ/viewform?usp=pp_url&entry.212183851=${lat}&entry.257830981=${lon}`;
+          window.location.href = formURL;
+        },
+        (err) => {
+          statusText.innerHTML = `❌ Location failed: ${err.message}`;
+          button.disabled = false;
+        }
+      );
+    });
   </script>
 </body>
 </html>
