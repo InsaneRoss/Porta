@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
-    html, body { margin: 0; padding: 0; height: 100%; }
+    html, body { margin: 0; padding: 0; height: 100%; font-family: sans-serif; }
     #map { width: 100%; height: 100%; }
     .leaflet-popup-content a.button {
       display: block;
@@ -18,112 +18,160 @@
       border-radius: 5px;
       font-weight: bold;
     }
+    #info-toggle {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1001;
+      background: white;
+      color: black;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+    #info-content {
+      position: absolute;
+      top: 50px;
+      right: 10px;
+      z-index: 1000;
+      background: white;
+      color: black;
+      padding: 12px;
+      border-radius: 6px;
+      width: 90vw;
+      max-width: 320px;
+      display: none;
+      box-shadow: 1px 1px 6px rgba(0,0,0,0.3);
+      font-size: 14px;
+      line-height: 1.4em;
+    }
+    @media (max-width: 600px) {
+      #info-content { font-size: 13px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Add Button -->
-  <a href="add.html" style="
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-    background: white;
-    color: black;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
-  ">➕ Add a PortaPotty</a>
+<a href="add.html" style="
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background: white;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+">➕ Add a PortaPotty</a>
 
-  <div id="map"></div>
-  <button id="locate-btn" title="Find Me" style="
-    position: absolute;
-    bottom: 20px;
-    left: 10px;
-    z-index: 1000;
-    background: white;
-    color: black;
-    padding: 8px 12px;
-    border-radius: 50%;
-    font-size: 18px;
-    font-weight: bold;
-    border: 2px solid #555;
-    cursor: pointer;
-    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
-  ">📍</button>
+<div id="info-toggle">ℹ️ Info</div>
+<div id="info-content">
+  <strong>About TelePorta</strong><br><br>
+  🟦 <strong>Adding a PortaPotty:</strong><br>
+  Tap the ➕ Add a PortaPotty button to open a form with your current location pre-filled. After confirming the spot, submit it to share with others.<br><br>
+  ❌ <strong>Reporting Removed Units:</strong><br>
+  Tap any blue pin to view details. If the porta-potty is no longer at that location, click the “Report as Removed” link.<br><br>
+  📍 <strong>Find Me:</strong><br>
+  Use the round pin button in the bottom-left to show your current location.<br><br>
+  🔄 <strong>Automatic Updates:</strong><br>
+  The map updates automatically based on submissions and reports every 30 minutes.<br><br>
+  🔒 <strong>Privacy:</strong><br>
+  Your location is only used in your browser and never stored.
+</div>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    const map = L.map('map').setView([37.5, -78.8], 7);
+<div id="map"></div>
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+<button id="locate-btn" title="Find Me" style="
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  z-index: 1000;
+  background: white;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #555;
+  cursor: pointer;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+">📍</button>
 
-    fetch(`locations.json?v=${Date.now()}`)
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(loc => {
-          
-          if (loc.lat == null || loc.lng == null) return;
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([37.5, -78.8], 7)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map)
 
-          const { lat, lng, label } = loc;
-          const gmapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-          const encodedReportUrl = encodeURI(
-            `https://docs.google.com/forms/d/e/1FAIpQLSe2rqRIKnNBw83M0xTS2NffnAZysfSqAa9ilLi89NQ2vLscQg/viewform?usp=pp_url&entry.1410949346=${lat}&entry.708279537=${lng}`
-          );
+  fetch(`locations.json?v=${Date.now()}`)
+    .then(res => res.json())
+    .then(data => {
+      data.forEach(loc => {
+        if (loc.lat == null || loc.lng == null) return
+        const { lat, lng, label } = loc
+        const gmapsUrl = `https://www.google.com/maps?q=${lat},${lng}`
+        const encodedReportUrl = encodeURI(
+          `https://docs.google.com/forms/d/e/1FAIpQLSe2rqRIKnNBw83M0xTS2NffnAZysfSqAa9ilLi89NQ2vLscQg/viewform?usp=pp_url&entry.1410949346=${lat}&entry.708279537=${lng}`
+        )
+        let popupContent = `<strong>${label}</strong><br><a href="${gmapsUrl}" target="_blank">📍 Open in Google Maps</a><br>`
+        if (label === "PortaPotty") {
+          popupContent += `<a href="${encodedReportUrl}" target="_blank" class="button">❌ Report as Removed</a>`
+        }
+        L.marker([lat, lng]).addTo(map).bindPopup(popupContent)
+      })
+    })
 
-          let popupContent = `
-            <strong>${label}</strong><br>
-            <a href="${gmapsUrl}" target="_blank">📍 Open in Google Maps</a><br>
-          `;
+  document.getElementById("locate-btn").addEventListener("click", () => {
+    map.locate({ setView: true, maxZoom: 14 })
+  })
 
-          if (label === "PortaPotty") {
-            popupContent += `<a href="${encodedReportUrl}" target="_blank" class="button">❌ Report as Removed</a>`;
-          }
+  const userIcon = L.icon({
+    iconUrl: "https://raw.githubusercontent.com/InsaneRoss/Porta/main/assets/User.png",
+    iconSize: [64, 64],
+    iconAnchor: [32, 64],
+    popupAnchor: [0, -64]
+  })
 
-          L.marker([lat, lng]).addTo(map).bindPopup(popupContent);
-        });
-      });
+  let userMarker = null
+  let userCircle = null
 
-    document.getElementById("locate-btn").addEventListener("click", () => {
-      map.locate({ setView: true, maxZoom: 14});
-    });
+  map.on("locationfound", function (e) {
+    const radius = e.accuracy
+    if (userMarker) map.removeLayer(userMarker)
+    if (userCircle) map.removeLayer(userCircle)
+    userMarker = L.marker(e.latlng, { icon: userIcon }).addTo(map)
+      .bindPopup(`📍 You are here<br>Lat: ${e.latlng.lat.toFixed(6)}<br>Lng: ${e.latlng.lng.toFixed(6)}`)
+      .openPopup()
+    userCircle = L.circle(e.latlng, {
+      radius: radius,
+      color: "#136AEC",
+      fillColor: "#136AEC",
+      fillOpacity: 0.15
+    }).addTo(map)
+  })
 
-    const userIcon = L.icon({
-      iconUrl: "https://raw.githubusercontent.com/InsaneRoss/Porta/main/assets/User.png",
-      iconSize: [64, 64],
-      iconAnchor: [32, 64],
-      popupAnchor: [0, -64]
-    });
+  map.on("locationerror", function () {
+    alert("📍 Could not get your location. Please allow location access.")
+  })
 
-    let userMarker = null;
-let userCircle = null;
+  document.getElementById("info-toggle").addEventListener("click", function () {
+    const info = document.getElementById("info-content")
+    info.style.display = (info.style.display === "block") ? "none" : "block"
+  })
 
-map.on("locationfound", function (e) {
-  const radius = e.accuracy;
-
-  if (userMarker) map.removeLayer(userMarker);
-  if (userCircle) map.removeLayer(userCircle);
-
-  userMarker = L.marker(e.latlng, { icon: userIcon }).addTo(map)
-    .bindPopup(`📍 You are here<br>Lat: ${e.latlng.lat.toFixed(6)}<br>Lng: ${e.latlng.lng.toFixed(6)}`)
-    .openPopup();
-
-  userCircle = L.circle(e.latlng, {
-    radius: radius,
-    color: "#136AEC",
-    fillColor: "#136AEC",
-    fillOpacity: 0.15
-  }).addTo(map);
-});
-
-    map.on("locationerror", function () {
-      alert("📍 Could not get your location. Please allow location access.");
-    });
-  </script>
-
+  document.addEventListener("click", function (e) {
+    const infoToggle = document.getElementById("info-toggle")
+    const infoContent = document.getElementById("info-content")
+    if (!infoContent.contains(e.target) && e.target !== infoToggle) {
+      infoContent.style.display = "none"
+    }
+  })
+</script>
 </body>
 </html>
