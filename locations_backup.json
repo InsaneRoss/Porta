@@ -208,5 +208,20 @@
     "lat": 37.531874,
     "lng": -77.676164,
     "label": "PortaPotty"
+  },
+  {
+    "lat": 37.397343,
+    "lng": -77.484957,
+    "label": "PortaPotty"
+  },
+  {
+    "lat": 37.403265,
+    "lng": -77.482672,
+    "label": "PortaPotty"
+  },
+  {
+    "lat": 37.402366,
+    "lng": -77.483164,
+    "label": "PortaPotty"
   }
 ]
